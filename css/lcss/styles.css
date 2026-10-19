@@ -1,0 +1,15 @@
+body {
+    text-align: center;
+    background-color: aquamarine;
+}
+
+#consoleloadbtn,
+#loadstatus,
+#summaryline {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
