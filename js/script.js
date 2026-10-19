@@ -6,14 +6,21 @@ const retroGameCards = document.getElementById("retrogamecards");
 consoleLoadBtn.addEventListener("click", loadConsoles);
 
 function loadConsoles() {
-    console.log("Button clicked");
+
+    loadStatus.textContent = "Loading...";
+    retroGameCards.textContent = "";
+    summaryLine.textContent = "";
+
     const apiURL = "https://ozarktechwebdev.com/api/consoles.json";
     const xhr = new XMLHttpRequest();
     xhr.open("GET", apiURL);
-    xhr.onreadystatechange = function () {
 
-        if (xhr.readyState === 4 && xhr.status === 200) {
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
             const data = JSON.parse(xhr.responseText);
+
+            loadStatus.textContent = "";
 
             console.log(data);
             console.log(data.consoles);
@@ -57,6 +64,9 @@ function loadConsoles() {
             }
 
             summaryLine.textContent = data.consoles.length + " consoles - Oldest: " + oldest.name + " (" + oldest.year + ") - Newest: " + newest.name + " (" + newest.year + ")";
+        }   else {
+                loadStatus.textContent = "Error loading consoles. Status: " + xhr.status;
+            }
         }
     };
 
