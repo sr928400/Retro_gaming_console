@@ -40,9 +40,23 @@ function loadConsoles() {
                 consoleCard.appendChild(consoleInfo);
 
                 retroGameCards.appendChild(consoleCard);
-
                 
             }
+
+            let oldest = data.consoles[0];
+            let newest = data.consoles[0];
+
+            for (let i = 1; i < data.consoles.length; i++) {
+                if (data.consoles[i].year < oldest.year) {
+                    oldest = data.consoles[i];
+                }
+
+                if (data.consoles[i].year > newest.year) {
+                    newest = data.consoles[i];
+                }
+            }
+
+            summaryLine.textContent = data.consoles.length + " consoles - Oldest: " + oldest.name + " (" + oldest.year + ") - Newest: " + newest.name + " (" + newest.year + ")";
         }
     };
 
