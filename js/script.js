@@ -1,0 +1,50 @@
+const consoleLoadBtn = document.getElementById("consoleloadbtn");
+const loadStatus = document.getElementById("loadstatus");
+const summaryLine = document.getElementById("summaryline");
+const retroGameCards = document.getElementById("retrogamecards");
+
+consoleLoadBtn.addEventListener("click", loadConsoles);
+
+function loadConsoles() {
+    console.log("Button clicked");
+    const apiURL = "https://ozarktechwebdev.com/api/consoles.json";
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", apiURL);
+    xhr.onreadystatechange = function () {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+
+            console.log(data);
+            console.log(data.consoles);
+            console.log(data.consoles.length);
+
+            retroGameCards.textContent = "";
+
+            for (let item of data.consoles) {
+
+                const consoleCard = document.createElement("div");
+
+                const consoleImage = document.createElement("img");
+                consoleImage.src = item.image;
+                consoleImage.alt = item.name;
+
+                const consoleName = document.createElement("h2");
+                consoleName.textContent = item.name;
+
+                const consoleInfo = document.createElement("p");
+                consoleInfo.textContent = item.manufacturer + " - " + item.year;
+
+                consoleCard.appendChild(consoleImage);
+                consoleCard.appendChild(consoleName);
+                consoleCard.appendChild(consoleInfo);
+
+                retroGameCards.appendChild(consoleCard);
+
+                
+            }
+        }
+    };
+
+    xhr.send();
+}
